@@ -1,0 +1,2 @@
+# simplify
+Simple snippet manager
