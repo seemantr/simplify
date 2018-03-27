@@ -21,7 +21,7 @@
     "pretty": true,
     "target": "es6",
     "jsx": "react",
-    "outDir": "dist"
+    "outDir": "app"
   },
   "formatCodeOptions": {
     "indentSize": 2,

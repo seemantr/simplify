@@ -1,6 +1,7 @@
 import { app, BrowserWindow } from 'electron'
-import path from 'path'
 import url from 'url'
+import path from 'path'
+import fs from 'fs'
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -16,6 +17,11 @@ function createWindow() {
             webSecurity: false
         }
     })
+
+    let filePath = path.join(__dirname, 'index.html')
+    if (!fs.existsSync(filePath)) {
+        throw Error(`Unable to find the index.html file to load. File Path: ${filePath}`)
+    }
 
     // and load the index.html of the app.
     mainWindow.loadURL(url.format({

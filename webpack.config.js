@@ -1,13 +1,14 @@
 'use strict'
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+
+// the path(s) that should be cleaned
+let pathsToClean = [
+    'app/**/*.*'
+]
 
 const commonConfig = {
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: '[name].js'
-    },
     module: {
         rules: [
             {
@@ -37,20 +38,34 @@ const commonConfig = {
 module.exports = [
     Object.assign(
         {
-            entry: { main: './src/main.ts' },
+            entry: { main: './main.ts' },
             target: 'electron-main',
-            plugins: [new webpack.SourceMapDevToolPlugin({ filename: '[name].js.map' })]
+            node: {
+                __filename: false,
+                __dirname: false
+            },
+            // Use dev tool as the inline source map can be debugged automatically
+            // in VS Code
+            devtool: 'source-map-inline',
+            output: {
+                path: path.resolve(__dirname),
+                filename: '[name].js'
+            }
         },
         commonConfig),
     Object.assign(
         {
             entry: { renderer: './src/renderer.tsx' },
             target: 'electron-renderer',
-            plugins: [new HtmlWebpackPlugin({
-                title: 'Simplify',
-                template: './src/index.html'
-            }),
-            new webpack.SourceMapDevToolPlugin({ filename: '[name].js.map' })]
+            plugins: [
+                new webpack.SourceMapDevToolPlugin({ filename: '[name].js.map' }),
+                new CleanWebpackPlugin(pathsToClean)
+            ],
+            output: {
+                path: path.resolve(__dirname, 'app'),
+                publicPath: '/app/',
+                filename: '[name].js'
+            }
         },
         commonConfig)
 ]
