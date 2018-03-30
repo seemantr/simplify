@@ -2,6 +2,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 
 // the path(s) that should be cleaned
 let pathsToClean = [
@@ -44,6 +45,9 @@ module.exports = [
                 __filename: false,
                 __dirname: false
             },
+            plugins: [
+                new HardSourceWebpackPlugin()
+            ],
             // Use dev tool as the inline source map can be debugged automatically
             // in VS Code
             devtool: 'source-map-inline',
@@ -59,7 +63,8 @@ module.exports = [
             target: 'electron-renderer',
             plugins: [
                 new webpack.SourceMapDevToolPlugin({ filename: '[name].js.map' }),
-                new CleanWebpackPlugin(pathsToClean)
+                new CleanWebpackPlugin(pathsToClean),
+                new HardSourceWebpackPlugin()
             ],
             output: {
                 path: path.resolve(__dirname, 'app'),
