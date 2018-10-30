@@ -13,6 +13,9 @@ function createWindow() {
         width: 800,
         height: 600,
         show: false,
+        frame: true,
+        titleBarStyle: 'hiddenInset',
+        vibrancy: 'dark',
         webPreferences: {
             webSecurity: false
         }
