@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "clean-webpack-plugin": "^0.1.19",
-    "electron": "1.8.4",
+    "electron": "35.7.5",
     "electron-builder": "^20.6.2",
     "hard-source-webpack-plugin": "^0.6.4",
     "ts-loader": "^4.1.0",
